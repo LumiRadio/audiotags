@@ -164,6 +164,11 @@ impl Tag {
                 t.set_config(self.config);
                 t
             })),
+            TagType::Vorbis => Ok(Box::new({
+                let mut t = VorbisTag::read_from_path(path)?;
+                t.set_config(self.config);
+                t
+            })),
         }
     }
 }
@@ -187,6 +192,14 @@ pub enum TagType {
     ///
     /// - <https://www.wikiwand.com/en/MPEG-4_Part_14>
     Mp4,
+    /// ## Common file extensions
+    ///
+    /// `.ogg`
+    ///
+    /// ## References
+    ///
+    /// - <https://www.wikiwand.com/en/Vorbis>
+    Vorbis,
 }
 
 #[rustfmt::skip]
@@ -196,6 +209,7 @@ impl TagType {
                                                      "mp3" => Ok(Self::Id3v2),
             "m4a" | "m4b" | "m4p" | "m4v" | "isom" | "mp4" => Ok(Self::Mp4),
                                                     "flac" => Ok(Self::Flac),
+                                                    "ogg" => Ok(Self::Vorbis),
             p => Err(crate::Error::UnsupportedFormat(p.to_owned())),
         }
     }

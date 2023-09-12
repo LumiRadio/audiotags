@@ -4,3 +4,5 @@ mod flac_tag;
 mod mp4_tag;
 pub use flac_tag::FlacTag;
 pub use mp4_tag::Mp4Tag;
+mod vorbis_tag;
+pub use vorbis_tag::VorbisTag;
